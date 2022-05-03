@@ -1,9 +1,6 @@
 <?php
-
-//controlleri za provjeru vrijednosti
 class Controller
 {
-    
 
     public static function ucitajInt(
         $poruka="Učitaj cijeli broj: "
@@ -62,12 +59,9 @@ class Controller
         $terminal = fopen('php://stdin', 'r');
         while(true){
             echo $poruka;
-   
+        
         $korisnik=fgets($terminal);
-        echo '-------';
         $korisnik= preg_replace("/\r|\n/", "", $korisnik);
-        echo strlen($korisnik);
-        echo '//////';
         if(strlen($korisnik)>0){
             return $korisnik;
 
