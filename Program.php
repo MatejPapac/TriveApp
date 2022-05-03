@@ -124,17 +124,42 @@ private function izbornik()
             $unos =(Controller::ucitajInt('Upiši sifru produkta: '));
             foreach($this->podaci as $p){
                 if($unos ==$p->getSifra($unos)){
-                $brojProdukta->setSifra($unos);
+                 $produktKosarice->setSifra($unos);
                 }
             }
         
-        if(null !==($brojProdukta->getSifra())){
+        if(null !==( $produktKosarice->getSifra())){
             break;
         }
 
         echo 'šifra tog predmeta ne postoji' . PHP_EOL;
+        continue;
         }
 
+        while(true) {
+            $unos=(Controller::ucitajInt('Stavi kolicinu' ,'kolicina mora biti vise od 0'));
+            foreach($this->podaci as $p){
+                if($produktKosarice ->getSifra() == $p->getSifra()) {
+                    if($unos <= $p ->getKolicina()){
+                        $produktKosarice->setKolicina($unos);
+                        $produktKosarice->setIme($p->getIme());
+                        $produktKosarice->setCijena($p->getCijena());
+                        $this->kosarica[]=$produktKosarice;
+                        $p->setKolicina($p->getKolicina()-$unos);
+                        echo 'Proizvod uspješno dodan!' ;
+                    
+
+                    }else{
+                        echo 'Ima' . $p->getKolicina() . '' . $p->getIme . 'u skladištu' . PHP_EOL;
+                    }
+                }
+            }
+        if(null !==($produktKosarice->getKolicina())) {
+            break;
+        }
+        continue;
+        }
+    $this->kosaricaMenu();
         
     
            
