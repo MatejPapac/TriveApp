@@ -53,6 +53,7 @@ private function izbornik()
         $p=new Produkt();
         $p->setSifra(Controller::ucitajInt('Unesi šifru produkta : '));
         $p->setIme(Controller::ucitajString('Unesi ime produkta : '));
+        $p->setKolicina(Controller::ucitajInt('Unesi kolicinu produkta : '));
         $p->setCijena(Controller::ucitajFloat('Unesi cijenu produkta : '));
         $this->podaci[]=$p;
         $this->izbornik();
@@ -62,7 +63,7 @@ private function izbornik()
     private function pregledProdukta()
         {
             foreach ($this->podaci as $p) {
-                echo $p->getIme() . ' ' . $p->getCijena() . ' ' . $p->getSifra() . PHP_EOL;
+                echo $p->getSifra() . ' ' . $p->getCijena() . ' ' . $p->getIme() .' ' . $p->getKolicina() .  PHP_EOL;
             }
         $this->izbornik();
         }
@@ -137,7 +138,7 @@ private function izbornik()
         }
 
         while(true) {
-            $unos=(Controller::ucitajInt('Stavi kolicinu' ,'kolicina mora biti vise od 0'));
+            $unos=(Controller::ucitajInt('Stavi kolicinu: ' ,'kolicina mora biti vise od 0'));
             foreach($this->podaci as $p){
                 if($produktKosarice ->getSifra() == $p->getSifra()) {
                     if($unos <= $p ->getKolicina()){
@@ -150,7 +151,8 @@ private function izbornik()
                     
 
                     }else{
-                        echo 'Ima' . $p->getKolicina() . '' . $p->getIme . 'u skladištu' . PHP_EOL;
+                        echo 'Ima ' . $p->getKolicina() . '' . $p->getIme() . ' u skladištu ' . PHP_EOL;
+
                     }
                 }
             }
@@ -165,6 +167,41 @@ private function izbornik()
            
     
     }
+    private function izbrisiIzKosarice()
+    {
+        for($i=0;$i<count($this->kosarica);$i++){
+            echo $this->kosarica[$i]->getSifra(). ' . ' . $this->kosarica[$i]->getIme()
+            . ' ' . $this->kosarica[$i]->getKolicina() . ' '. $this->kosarica[$i]->getKolicina() . PHP_EOL;
+        }
+        $izbrisi=Controller::ucitajInt('odaberi šifru predmeta kojeg zelis izbrisat : ');
+
+        array_splice($this->kosarica,$izbrisi-1,1);
+        echo 'Uspješno obrisano' .PHP_EOL;
+
+        $this->kosaricaMenu();
+
+
+
+    }
+
+
+    private function racun()
+    {
+        $total=0;
+
+        echo 'Racun' . PHP_EOL;
+        foreach($this->kosarica as $k){
+            $cijena = $k->getCijena() * $k->getKolicina();
+            $total +=$cijena;
+            echo $k -> getIme() . ' ' . $k->getKolicina() . ' * ' . $k->getCijena() . ' = ' . $cijena . PHP_EOL;
+            echo 'TOTAL= ' . $total . PHP_EOL;
+            $this->kosarica = [];
+            $this->kosaricaMenu();
+        }
+
+    }
+
+    
 
 
 
