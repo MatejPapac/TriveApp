@@ -1,8 +1,12 @@
 <?php
 class Program
 {
+
+    
 private $podaci;
 private $kosarica;
+
+//Radim podaci i kosarica array i stavljam ih i construct
 public function __construct()
 {
     $this->podaci=[];
@@ -11,6 +15,7 @@ public function __construct()
 
 }
 
+//prvi izbornik dodavanje i provjera produkta
 private function izbornik()
 {
 
@@ -49,6 +54,7 @@ private function izbornik()
     }   
 
     private function unosProdukta()
+    //unos produkta po njihovim vrijednostima
     {
         $p=new Produkt();
         $p->setSifra(Controller::ucitajInt('Unesi šifru produkta : '));
@@ -61,6 +67,7 @@ private function izbornik()
     }
 
     private function pregledProdukta()
+    //pregled produkta na prvom meniju
         {
             foreach ($this->podaci as $p) {
                 echo $p->getSifra() . ' ' . $p->getCijena() . ' ' . $p->getIme() .' ' . $p->getKolicina() .  PHP_EOL;
@@ -71,6 +78,7 @@ private function izbornik()
 
 
         private function kosaricaMenu()
+        // drugi meni za kosaricu
 
         {
             echo '1.Dodaj u košaricu' .PHP_EOL;
@@ -108,6 +116,7 @@ private function izbornik()
 
 
         private function dodajuKosaricu()
+        //dodajem u kosaricu sa postojecim proizvodima
         {
             $produktKosarice=new Produkt();
 
@@ -168,6 +177,7 @@ private function izbornik()
     
     }
     private function izbrisiIzKosarice()
+    //brisem iz kosarice postojece produkte
     {
         for($i=0;$i<count($this->kosarica);$i++){
             echo $this->kosarica[$i]->getSifra(). ' . ' . $this->kosarica[$i]->getIme()
@@ -186,6 +196,7 @@ private function izbornik()
 
 
     private function racun()
+    //pokazujem postojoce proizvode u kosarici i zbrajam .
     {
         $total=0;
 

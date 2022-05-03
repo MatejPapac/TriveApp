@@ -1,5 +1,6 @@
 <?php
 
+//produkt class sa get i set metodama
 class Produkt
 {
     private $sifra;
